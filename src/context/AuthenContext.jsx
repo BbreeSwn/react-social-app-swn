@@ -1,4 +1,4 @@
-import { createContext, useState , useEffect } from "react";
+import { createContext, useState } from "react";
 export const AuthContext = createContext();
 import * as UserAPI from '../apis/userApi'
 
@@ -6,16 +6,18 @@ import * as UserAPI from '../apis/userApi'
 export default function AutnContextProvider({ children }) {
     const [user, setUser] = useState(null);
 
-    useEffect(()=> {
-        login();
-    },[]);
+    // useEffect(()=> {
+    //     login();
+    // },[]);
 
     const login = async () => {
         try {
             const response = await UserAPI.getUserById('1')
             setUser(response.data)
+            console.log(response.data)
 
         }catch (error) {
+            setUser(null);
             console.log(error)
         }
     }
